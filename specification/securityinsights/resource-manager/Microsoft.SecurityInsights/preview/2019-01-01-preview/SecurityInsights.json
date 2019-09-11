@@ -1686,9 +1686,6 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{operationalInsightsResourceProvider}/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/settings/{settingsName}": {
       "get": {
         "x-ms-examples": {
-          "Get UEBA settings.": {
-            "$ref": "./examples/settings/GetUebaSettings.json"
-          },
           "Get Fusion settings.": {
             "$ref": "./examples/settings/GetFusionSettings.json"
           }
@@ -1734,11 +1731,6 @@
         }
       },
       "put": {
-        "x-ms-examples": {
-          "Update UEBA settings.": {
-            "$ref": "./examples/settings/UpdateUebaSettings.json"
-          }
-        },
         "tags": [
           "Settings"
         ],
@@ -5228,8 +5220,8 @@
         "kind": {
           "description": "The kind of the setting",
           "enum": [
-            "UebaSettings",
-            "ToggleSettings"
+            "ToggleSettings",
+			"EntityAnalyticsSettings"
           ],
           "type": "string",
           "x-ms-enum": {
@@ -5351,55 +5343,29 @@
       },
       "type": "object"
     },
-    "UebaSettings": {
+    "EntityAnalyticsSettings": {
       "allOf": [
         {
           "$ref": "#/definitions/Settings"
         }
       ],
-      "description": "Represents settings for User and Entity Behavior Analytics enablement.",
+      "description": "Represents settings for Entity Analytics onboarding experience",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/UebaSettingsProperties",
-          "description": "User and Entity Behavior Analytics settings properties",
+          "$ref": "#/definitions/EntityAnalyticsSettingsProperties",
+          "description": "Represents settings for Entity Analytics onboarding experience",
           "x-ms-client-flatten": true
         }
       },
       "type": "object",
-      "x-ms-discriminator-value": "UebaSettings"
+      "x-ms-discriminator-value": "EntityAnalytics"
     },
-    "UebaSettingsProperties": {
-      "description": "User and Entity Behavior Analytics settings property bag.",
+    "EntityAnalyticsSettingsProperties": {
+      "description": "Entity Analytics settings property bag.",
       "properties": {
-        "atpLicenseStatus": {
-          "description": "Determines whether the tenant has ATP (Advanced Threat Protection) license.",
-          "enum": [
-            "Enabled",
-            "Disabled"
-          ],
-          "readOnly": true,
-          "type": "string",
-          "x-ms-enum": {
-            "modelAsString": true,
-            "name": "LicenseStatus"
-          }
-        },
-        "isEnabled": {
-          "description": "Determines whether User and Entity Behavior Analytics is enabled for this workspace.",
+        "isOnboarded": {
+          "description": "Determines whether the workspace has agreen to onboared to entity analytics experience",
           "type": "boolean"
-        },
-        "statusInMcas": {
-          "description": "Determines whether User and Entity Behavior Analytics is enabled from MCAS (Microsoft Cloud App Security).",
-          "enum": [
-            "Enabled",
-            "Disabled"
-          ],
-          "readOnly": true,
-          "type": "string",
-          "x-ms-enum": {
-            "modelAsString": true,
-            "name": "StatusInMcas"
-          }
         }
       },
       "type": "object"
@@ -5695,7 +5661,7 @@
       "x-ms-parameter-location": "method"
     },
     "SettingsName": {
-      "description": "The setting name. Supports- Fusion, UEBA",
+      "description": "The setting name. Supports- Fusion, EntityAnalytics",
       "in": "path",
       "name": "settingsName",
       "required": true,
