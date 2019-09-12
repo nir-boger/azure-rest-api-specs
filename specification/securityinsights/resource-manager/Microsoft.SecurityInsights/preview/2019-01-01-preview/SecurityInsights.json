@@ -1687,7 +1687,7 @@
       "get": {
         "x-ms-examples": {
           "Get Fusion settings.": {
-            "$ref": "./examples/settings/GetFusionSettings.json"
+            "$ref": "./examples/settings/GetEntityAnalyticsSettings.json"
           }
         },
         "tags": [
@@ -1731,6 +1731,11 @@
         }
       },
       "put": {
+      "x-ms-examples": {
+          "Update UEBA settings.": {
+            "$ref": "./examples/settings/UpdateEntityAnalyticsSettings.json"
+          }
+        },
         "tags": [
           "Settings"
         ],
@@ -5220,8 +5225,7 @@
         "kind": {
           "description": "The kind of the setting",
           "enum": [
-            "ToggleSettings",
-			"EntityAnalyticsSettings"
+            "EntityAnalyticsSettings"
           ],
           "type": "string",
           "x-ms-enum": {
@@ -5312,33 +5316,6 @@
           "description": "Threat type (e.g. \"Botnet\")",
           "readOnly": true,
           "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "ToggleSettings": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/Settings"
-        }
-      ],
-      "description": "Settings with single toggle.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/ToggleSettingsProperties",
-          "description": "toggle properties",
-          "x-ms-client-flatten": true
-        }
-      },
-      "type": "object",
-      "x-ms-discriminator-value": "ToggleSettings"
-    },
-    "ToggleSettingsProperties": {
-      "description": "toggle property bag.",
-      "properties": {
-        "isEnabled": {
-          "description": "Determines whether the setting is enable or disabled.",
-          "type": "boolean"
         }
       },
       "type": "object"
